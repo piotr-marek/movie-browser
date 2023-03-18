@@ -1,0 +1,7 @@
+<div *ngIf="recent$ | async as recent" class="recent-container">
+  <ng-container *ngFor="let item of recent$ | async; first as first">
+    <div *ngIf="!first" class="recent-item" [routerLink]="['/movie', item.imdbId]">
+      <img [src]="item.poster" alt="">
+    </div>
+  </ng-container>
+</div>

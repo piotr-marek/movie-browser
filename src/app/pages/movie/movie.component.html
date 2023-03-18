@@ -1,1 +1,6 @@
-<p>movie works!</p>
+<div *ngIf="movie$ | async as movie">
+  <div *ngIf="movie?.response==='True'" class="movie-data">{{movie | json}}</div>
+  <div *ngIf="movie?.response==='False'" class="movie-data">{{movie.error | json}}</div>
+</div>
+
+<app-recent></app-recent>

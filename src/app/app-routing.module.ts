@@ -6,11 +6,11 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   {
-    path: '/movie/:id',
+    path: 'movie/:id',
     component: MovieComponent
   },
   {
-    path: '/',
+    path: '',
     component: HomeComponent
   },
   {

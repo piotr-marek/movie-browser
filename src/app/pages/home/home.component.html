@@ -1,1 +1,52 @@
-<p>home works!</p>
+<div class="search-input-container">
+  <form [formGroup]="input" (ngSubmit)="search()" action="">
+    <label for="title">
+      <input placeholder="Type a title..." type="text" id="title" formControlName="s">
+    </label>
+    <ng-container *ngIf="input.get('s') as formControl">
+      <div *ngIf="formControl?.invalid && (formControl?.touched || formControl?.dirty)" class="warning">
+        <div *ngIf="formControl?.errors?.['required']">Title is required.</div>
+        <div *ngIf="formControl?.errors?.['minlength']">Type at least 3 characters.</div>
+      </div>
+    </ng-container>
+
+    <label for="type">Type
+      <select name="" id="type" formControlName="type" >
+        <option value="">Any</option>
+        <option value="movie">Movie</option>
+        <option value="series">Series</option>
+        <option value="episode">Episode</option>
+      </select>
+    </label>
+    <label for="year">Year
+      <input placeholder="Any" type="text" id="year" formControlName="y">
+    </label>
+    <ng-container *ngIf="input.get('y') as formControl">
+      <div *ngIf="formControl?.invalid && (formControl?.touched || formControl?.dirty)" class="warning">
+        <div *ngIf="formControl?.errors?.['pattern']">Type year in YYYY format.</div>
+      </div>
+    </ng-container>
+    <button [disabled]="input.invalid" type="submit">Search</button>
+
+  </form>
+  <button *ngIf="isClearButtonVisible()" (click)="resetInput()">Clear form</button>
+
+</div>
+<ul *ngIf="outputResponse$ | async as searchResponse">
+  <ng-container *ngIf="!searchResponse.isFetching else isFetching">
+    <div *ngIf="searchResponse.response==='True'; else noResponse" class="results">
+      <li *ngFor="let result of searchResponse.search"><a [routerLink]="'/movie/' + result.imdbId">{{result.title}}</a></li>
+
+    </div>
+
+
+
+    <ng-template #noResponse>
+      <div *ngIf="!searchResponse.isEmpty" class="no-response">
+        <div class="error">{{searchResponse.error || 'Ooops! Something went wrong.'}}</div>
+      </div>
+    </ng-template>
+  </ng-container>
+  <ng-template #isFetching>loading....</ng-template>
+  <app-pagination *ngIf="isPaginationVisible" [input$]="paginationInput$" (go)="goToPage($event)"></app-pagination>
+</ul>
