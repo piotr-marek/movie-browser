@@ -1,11 +1,9 @@
 <div class="container">
   <div class="row search-bar">
     <div class="col-12 input-form">
-
       <form [formGroup]="input" (ngSubmit)="search()" action="">
         <label for="title">
           <span class="label-name">Title:</span>
-
           <input placeholder="Type a title..." type="text" id="title" formControlName="s" autofocus>
           <ng-container *ngIf="input.get('s') as formControl">
             <div *ngIf="formControl?.invalid && (formControl?.touched || formControl?.dirty)" class="warning">
@@ -14,8 +12,6 @@
             </div>
           </ng-container>
         </label>
-
-
         <label for="type">
           <span class="label-name">Type:</span>
           <select name="" id="type" formControlName="type" >
@@ -34,39 +30,22 @@
             </div>
           </ng-container>
         </label>
-
         <button [disabled]="input.invalid" type="submit">Search</button>
         <div class="clear" [class.is-visible]="isClearButtonVisible()">
           <span (click)="resetInput()">Clear form</span>
         </div>
-
       </form>
-
-
-
     </div>
   </div>
-
 </div>
 <div class="container">
   <ng-container *ngIf="outputResponse$ | async as searchResponse">
     <ng-container *ngIf="!searchResponse.isFetching else isFetching">
-      <div *ngIf="searchResponse.response==='True'; else noResponse" class="row results">
-        <div *ngFor="let result of searchResponse.search" class="col-12 result">
-          <div class="row">
-            <div class="col-4 col-sm-3 col-md-2 poster">
-              <img [src]="getImageSrc(result.poster)" alt="">
-            </div>
-            <div class="col-8 col-sm-9 col-md-10">
-              <a class="title" [routerLink]="['/movie', result.imdbId]">{{result.title}}</a>
-              <hr>
-              <div class="year">{{result.year}}</div>
-              <div class="type">{{result.type}}</div>
-
-            </div>
-          </div>
-        </div>
-      </div>
+      <ng-container *ngIf="searchResponse.response==='True'; else noResponse">
+        <ng-container *ngFor="let result of searchResponse.search">
+          <app-movie-card [movie]="result"></app-movie-card>
+        </ng-container>
+      </ng-container>
       <ng-template #noResponse>
 
       </ng-template>
@@ -74,30 +53,4 @@
     <ng-template #isFetching>loading....</ng-template>
     <app-pagination  [input$]="paginationInput$" (go)="goToPage($event)"></app-pagination>
   </ng-container>
-
-
-
-  <div class="row" >
-    <div class="col-12"></div>
-  </div>
 </div>
-
-
-<!-- <ul *ngIf="outputResponse$ | async as searchResponse">
-  <ng-container *ngIf="!searchResponse.isFetching else isFetching">
-    <div *ngIf="searchResponse.response==='True'; else noResponse" class="results">
-      <li *ngFor="let result of searchResponse.search"><a [routerLink]="'/movie/' + result.imdbId">{{result.title}}</a></li>
-
-    </div>
-
-
-
-    <ng-template #noResponse>
-      <div *ngIf="!searchResponse.isEmpty" class="no-response">
-        <div class="error">{{searchResponse.error || 'Ooops! Something went wrong.'}}</div>
-      </div>
-    </ng-template>
-  </ng-container>
-  <ng-template #isFetching>loading....</ng-template>
-  <app-pagination *ngIf="isPaginationVisible" [input$]="paginationInput$" (go)="goToPage($event)"></app-pagination>
-</ul> -->

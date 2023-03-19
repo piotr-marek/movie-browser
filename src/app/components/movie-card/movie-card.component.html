@@ -1,0 +1,11 @@
+<div class="row movie">
+  <div class="col-4 col-sm-3 col-md-2 poster">
+    <img [src]="getImageSrc(movie.poster)" alt="">
+  </div>
+  <div class="col-8 col-sm-9 col-md-10">
+    <a class="title" [routerLink]="['/movie', movie.imdbId]">{{movie.title}}</a>
+    <hr>
+    <div class="year">{{movie.year}}</div>
+    <div class="type">{{movie.type}}</div>
+  </div>
+</div>

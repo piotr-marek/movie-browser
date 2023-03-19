@@ -10,6 +10,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RecentComponent } from './components/recent/recent.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { MovieCardComponent } from './components/movie-card/movie-card.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     HomeComponent,
     NotFoundComponent,
     RecentComponent,
-    PaginationComponent
+    PaginationComponent,
+    MovieCardComponent
   ],
   imports: [
     BrowserModule,
