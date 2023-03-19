@@ -58,7 +58,7 @@
               <img [src]="getImageSrc(result.poster)" alt="">
             </div>
             <div class="col-8 col-sm-9 col-md-10">
-              <div class="title" [routerLink]="['/movie', result.imdbId]">{{result.title}}</div>
+              <a class="title" [routerLink]="['/movie', result.imdbId]">{{result.title}}</a>
               <hr>
               <div class="year">{{result.year}}</div>
               <div class="type">{{result.type}}</div>
@@ -72,7 +72,7 @@
       </ng-template>
     </ng-container>
     <ng-template #isFetching>loading....</ng-template>
-    <app-pagination *ngIf="isPaginationVisible" [input$]="paginationInput$" (go)="goToPage($event)"></app-pagination>
+    <app-pagination  [input$]="paginationInput$" (go)="goToPage($event)"></app-pagination>
   </ng-container>
 
 

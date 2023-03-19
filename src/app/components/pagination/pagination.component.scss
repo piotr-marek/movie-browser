@@ -1,0 +1,22 @@
+@import 'variables';
+.pagination-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  .pagination{
+    max-width: 300px;
+    display: flex;
+    justify-content: space-between;
+    .page-number, .arrow{
+      @extend .f-roboto-light;
+      cursor: pointer;
+      border: 5px solid #fff;
+      padding: 1rem;
+      &.active{
+        @include border;
+        cursor: default;
+      }
+    }
+  }
+}

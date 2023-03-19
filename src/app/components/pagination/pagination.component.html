@@ -1,7 +1,9 @@
 <ng-container *ngIf="input$ | async as input">
   <div *ngIf="isValidInput(input)" class="pagination-container">
-    <div *ngIf="input.page!==1" class="arrow prev" (click)="goToPage(input.page-1)"><<<</div>
-    <div *ngFor="let page of getNearbyPages(input)" (click)="goToPage(page, input)" class="page-number" [class.disabled]="input.page===page">{{page}}</div>
-    <div *ngIf="input.page!==getPagesCount(input)" (click)="goToPage(input.page+1)" class="arrow next">>>></div>
+    <div class="pagination">
+      <div *ngIf="input.page!==1" class="arrow prev" (click)="goToPage(input.page-1)"><<<</div>
+      <div *ngFor="let page of getNearbyPages(input)" (click)="goToPage(page, input)" class="page-number" [class.active]="input.page===page">{{page}}</div>
+      <div *ngIf="input.page!==getPagesCount(input)" (click)="goToPage(input.page+1)" class="arrow next">>>></div>
+    </div>
   </div>
 </ng-container>

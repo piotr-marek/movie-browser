@@ -1,12 +1,6 @@
 @import 'variables.scss';
-@mixin border{
-  border: 5px solid ;
-  border-image-source: $gradient;
-  border-image-slice: 1;
-}
 
 .search-bar{
-  //@include border;
   padding: 1rem;
   margin-top: 2rem;
   .input-form{
@@ -82,7 +76,7 @@
 .result{
   @include border;
   padding: 1rem;
-  margin-top: 2rem;
+  margin: 1rem 0;
   &:hover{
     @extend .shadow;
     background-color: #F1F1FF;
@@ -102,9 +96,8 @@
     @extend .f-lobster;
     font-size: $f-xl;
     cursor: pointer;
-    &:hover{
-      //text-decoration: underline;
-    }
+    text-decoration: none;
+    color: #000;
   }
   .year{
     @extend .f-roboto-light;
@@ -112,7 +105,6 @@
   }
   .type{
     @extend .f-roboto-light;
-    //font-size: ;
   }
 }
 

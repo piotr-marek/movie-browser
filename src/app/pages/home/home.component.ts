@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MovieService } from 'src/app/services/movie.service';
-import { catchError, filter, map, merge, Observable, of, share, Subject, switchMap, takeUntil, tap, zipWith } from 'rxjs'
+import { catchError, filter, map, merge, Observable, of, share, shareReplay, Subject, switchMap, takeUntil, tap, zipWith } from 'rxjs'
 import { SearchResponse } from 'src/app/interfaces/search-response';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ERROR_RESPONSE } from 'src/app/constants/error-response';
@@ -24,7 +24,7 @@ export class HomeComponent implements OnDestroy {
   paginationInput$!: Observable<PaginationInput>;
 
   isLoading: boolean = false;
-  isPaginationVisible: boolean = true;
+  //isPaginationVisible: boolean = true;
 
   input: FormGroup = new FormGroup({
     s: new FormControl('', {nonNullable: true, validators: [Validators.required, Validators.minLength(3)]}),
@@ -42,8 +42,8 @@ export class HomeComponent implements OnDestroy {
         map(queryParams => Object.fromEntries(Object.entries(queryParams).filter(([key, val]) => key==='s' || key==='y' || key==='type' || key==='page'))),
         switchMap(queryParams => queryParams['s'] ? _movieService.search(queryParams) : of(this._EMPTY_RESPONSE)),
         catchError(err => of(ERROR_RESPONSE)),
-        tap(() => this.isPaginationVisible = true),
-        share()
+        //tap(() => this.isPaginationVisible = true),
+        shareReplay(1)
       )
 
       this.outputResponse$ = merge(this._isFetching$, this.searchResponse$);
@@ -76,7 +76,7 @@ export class HomeComponent implements OnDestroy {
 
     search(){
       this._isFetching$.next(this._IS_FETCHING_RESPONSE);
-      this.isPaginationVisible = false;
+      //this.isPaginationVisible = false;
       this._router.navigate([], {queryParams: {
         s: this.input.value.s,
         y: this.input.value.y || undefined,
