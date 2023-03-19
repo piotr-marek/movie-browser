@@ -56,16 +56,19 @@
           <span class="key">Production</span>
           <span class="value">{{movie.production || 'N/A'}}</span>
         </article>
-
-
-
-
       </div>
       <div class="poster col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 order-1 order-sm-1 order-md-2 order-lg-2 order-xl-2">
         <img [src]="movie.poster" alt="">
       </div>
     </div>
-    <div *ngIf="movie?.response==='False'" class="row error"></div>
+    <div *ngIf="movie?.response==='False'" class="row error">
+      <div class="col-12">
+        <p>
+          <span class="f-roboto-bold">Ooops! </span>
+          <span class="f-roboto-thin">{{movie.error}} </span>
+        </p>
+      </div>
+    </div>
   </ng-container>
   <ng-template #loading>
     <div class="row" #loading></div>
