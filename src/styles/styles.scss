@@ -1,4 +1,5 @@
 @import 'bootstrap-grid.min.css';
+@import 'variables';
 body{
   margin: 0;
 }
@@ -7,5 +8,24 @@ body{
   &.justify-center{
     justify-content: center;
   }
+}
+.spinner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0;
+}
+.error{
+  p{
+    text-align: center;
+    font-size: $f-m;
+    padding: 4rem 0;
+  }
+}
+@media screen and (max-width: 580px) {
+  .container{
+    width: unset;
+  }
+
 }
 

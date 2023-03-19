@@ -1,7 +1,11 @@
-<div *ngIf="recent$ | async as recent" class="recent-container">
-  <ng-container *ngFor="let item of recent$ | async; first as first">
-    <div *ngIf="!first" class="recent-item" [routerLink]="['/movie', item.imdbId]">
-      <img [src]="item.poster" alt="">
+<div *ngIf="recent$ | async as recent" class="container">
+  <div *ngIf="isValidRecentList(recent)" class="row">
+    <div class="col-12">
+      <hr>
+      <h1>Recently viewed</h1>
     </div>
+  </div>
+  <ng-container *ngFor="let item of recent$ | async; first as first">
+    <app-movie-card *ngIf="!first" [movie]="item"></app-movie-card>
   </ng-container>
 </div>

@@ -47,10 +47,23 @@
         </ng-container>
       </ng-container>
       <ng-template #noResponse>
-
+        <div class="row error">
+          <div class="col-12">
+            <p>
+              <span class="f-roboto-bold">Ooops! </span>
+              <span class="f-roboto-thin">{{searchResponse.error}}</span>
+            </p>
+          </div>
+        </div>
       </ng-template>
+      <app-pagination  [input$]="paginationInput$" (go)="goToPage($event)"></app-pagination>
     </ng-container>
-    <ng-template #isFetching>loading....</ng-template>
-    <app-pagination  [input$]="paginationInput$" (go)="goToPage($event)"></app-pagination>
+    <ng-template #isFetching>
+      <div class="row">
+        <div class="col-12 spinner">
+          <img src="../../../assets/images/spinner.svg" alt="">
+        </div>
+      </div>
+    </ng-template>
   </ng-container>
 </div>
