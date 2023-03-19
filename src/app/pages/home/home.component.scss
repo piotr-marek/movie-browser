@@ -1,0 +1,120 @@
+@import 'variables.scss';
+@mixin border{
+  border: 5px solid ;
+  border-image-source: $gradient;
+  border-image-slice: 1;
+}
+
+.search-bar{
+  //@include border;
+  padding: 1rem;
+  margin-top: 2rem;
+  .input-form{
+    display: flex;
+    justify-content: center;
+    form{
+      width: 100%;
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      label{
+        @include border;
+        @extend .f-roboto-light;
+        position: relative;
+        padding: 1rem;
+        margin: .2rem 0;
+        display: flex;
+        input, select{
+          @extend .f-roboto-light;
+          font-size: 1rem;
+          border: none;
+          outline: none;
+          width: 100%;
+          display: block;
+          padding: 0;
+        }
+        .label-name{
+          margin-right: .5rem;
+        }
+        .warning{
+          position: absolute;
+          bottom: 5px;
+          @extend .f-roboto-light;
+          font-size: .7rem;
+        }
+      }
+      button{
+        @include border;
+        @extend .f-roboto-light;
+        background: #fff;
+        cursor: pointer;
+        padding: .5rem;
+        margin: .2rem 0;
+        font-size: 1rem;
+        &:hover:not(:disabled){
+          color: #fff;
+          background: $gradient;
+        }
+        &:disabled{
+          cursor: default;
+          opacity: .7;
+          color: #000;
+        }
+      }
+      .clear{
+        display: flex;
+        padding: .5rem;
+        justify-content: center;
+        opacity: 0;
+        cursor: default;
+        &.is-visible{
+          opacity: 1;
+          cursor: pointer;
+
+        }
+        span{
+          @extend .f-roboto-light;
+        }
+      }
+    }
+  }
+}
+.result{
+  @include border;
+  padding: 1rem;
+  margin-top: 2rem;
+  &:hover{
+    @extend .shadow;
+    background-color: #F1F1FF;
+  }
+  hr{
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    height: 2px;
+    background: $gradient;
+  }
+  .poster{
+    img{
+      width: 100%;
+    }
+  }
+  .title{
+    @extend .f-lobster;
+    font-size: $f-xl;
+    cursor: pointer;
+    &:hover{
+      //text-decoration: underline;
+    }
+  }
+  .year{
+    @extend .f-roboto-light;
+    font-size: $f-m;
+  }
+  .type{
+    @extend .f-roboto-light;
+    //font-size: ;
+  }
+}
+
+
+

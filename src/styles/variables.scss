@@ -1,0 +1,72 @@
+@font-face {
+  font-family: 'lobster';
+  src: url(../assets/fonts/Lobster-Regular.ttf);
+}
+@font-face {
+  font-family: 'roboto-thin';
+  src: url(../assets/fonts/Roboto-Thin.ttf);
+}
+@font-face {
+  font-family: 'roboto-light';
+  src: url(../assets/fonts/Roboto-Light.ttf);
+}
+@font-face {
+  font-family: 'roboto-medium';
+  src: url(../assets/fonts/Roboto-Medium.ttf);
+}
+@font-face {
+  font-family: 'roboto-regular';
+  src: url(../assets/fonts/Roboto-Regular.ttf);
+}
+@font-face {
+  font-family: 'roboto-bold';
+  src: url(../assets/fonts/Roboto-Bold.ttf);
+}
+@font-face {
+  font-family: 'roboto-black';
+  src: url(../assets/fonts/Roboto-Black.ttf);
+}
+.f-lobster{
+  font-family: 'lobster';
+}
+.f-roboto-thin{
+  font-family: 'roboto-thin';
+}
+.f-roboto-light{
+  font-family: 'roboto-light';
+}
+.f-roboto-medium{
+  font-family: 'roboto-medium';
+}
+.f-roboto-regular{
+  font-family: 'roboto-regular';
+}
+.f-roboto-bold{
+  font-family: 'roboto-bold';
+}
+.f-roboto-black{
+  font-family: 'roboto-black';
+}
+$f-xl: 3rem;
+$f-l: 2rem;
+$f-m: 1.5rem;
+.f-xl{
+  font-size: $f-m;
+  @media screen and (min-width: 576px) {
+    font-size: $f-l;
+  }
+  @media screen and (min-width: 786px) {
+    font-size: $f-xl;
+  }
+}
+
+
+
+$gradient: linear-gradient(90deg, rgba(178,174,255,1) 0%, rgba(121,9,9,1) 36%, rgba(160,125,6,1) 76%, rgba(0,212,255,1) 100%);
+$shadow: 15px 16px 36px -12px rgba(133, 136, 194, 1);
+.shadow{
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+

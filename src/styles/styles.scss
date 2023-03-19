@@ -1,0 +1,11 @@
+@import 'bootstrap-grid.min.css';
+body{
+  margin: 0;
+}
+.flex{
+  display: flex;
+  &.justify-center{
+    justify-content: center;
+  }
+}
+

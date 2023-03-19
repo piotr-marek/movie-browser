@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MovieService } from 'src/app/services/movie.service';
-import { catchError, filter, map, merge, Observable, of, Subject, switchMap, takeUntil, tap, zipWith } from 'rxjs'
+import { catchError, filter, map, merge, Observable, of, share, Subject, switchMap, takeUntil, tap, zipWith } from 'rxjs'
 import { SearchResponse } from 'src/app/interfaces/search-response';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ERROR_RESPONSE } from 'src/app/constants/error-response';
@@ -42,7 +42,8 @@ export class HomeComponent implements OnDestroy {
         map(queryParams => Object.fromEntries(Object.entries(queryParams).filter(([key, val]) => key==='s' || key==='y' || key==='type' || key==='page'))),
         switchMap(queryParams => queryParams['s'] ? _movieService.search(queryParams) : of(this._EMPTY_RESPONSE)),
         catchError(err => of(ERROR_RESPONSE)),
-        tap(() => this.isPaginationVisible = true)
+        tap(() => this.isPaginationVisible = true),
+        share()
       )
 
       this.outputResponse$ = merge(this._isFetching$, this.searchResponse$);
@@ -92,6 +93,9 @@ export class HomeComponent implements OnDestroy {
     goToPage(page: number){
       this._isFetching$.next(this._IS_FETCHING_RESPONSE);
       this._router.navigate([], {queryParams: { page }, queryParamsHandling: 'merge'});
+    }
+    getImageSrc(url: string): string{
+      return url.match(/^http/) ? url : '../../assets/images/no-poster.svg'
     }
 
 }

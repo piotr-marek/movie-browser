@@ -1,0 +1,16 @@
+@import 'variables';
+.header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: $gradient;
+  padding: 1rem 0;
+  .page-title{
+    @extend .f-lobster;
+    @extend .f-xl;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+  }
+}
