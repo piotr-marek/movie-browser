@@ -1,6 +1,74 @@
-<div *ngIf="movie$ | async as movie">
-  <div *ngIf="movie?.response==='True'" class="movie-data">{{movie | json}}</div>
-  <div *ngIf="movie?.response==='False'" class="movie-data">{{movie.error | json}}</div>
-</div>
+<div class="container">
+  <ng-container *ngIf="movie$ | async as movie; else loading">
+    <div *ngIf="movie?.response==='True'" class="row movie">
+      <div class="data col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 order-2 order-sm-2 order-md-1 order-lg-1 order-xl-1">
+        <header>
+          <h1 class="f-xl">{{movie.title}}</h1>
+          <p class="year">{{movie.year}}</p>
+          <p class="type">{{movie.type}}</p>
+        </header>
+        <hr>
+        <article>
+          <span class="key">Released</span>
+          <span class="value">{{movie.released || 'N/A'}}</span>
+        </article>
+        <article>
+          <span class="key">Genre</span>
+          <span class="value">{{movie.genre || 'N/A'}}</span>
+        </article>
+        <article>
+          <span class="key">Runtime</span>
+          <span class="value">{{movie.runtime || 'N/A'}}</span>
+        </article>
+        <article>
+          <span class="key">Director</span>
+          <span class="value">{{movie.director || 'N/A'}}</span>
+        </article>
+        <article>
+          <span class="key">Writer</span>
+          <span class="value">{{movie.writer || 'N/A'}}</span>
+        </article>
+        <article>
+          <span class="key">Actors</span>
+          <span class="value">{{movie.actors || 'N/A'}}</span>
+        </article>
+        <article>
+          <span class="key">Plot</span>
+          <span class="value">{{movie.plot || 'N/A'}}</span>
+        </article>
+        <article>
+          <span class="key">Language</span>
+          <span class="value">{{movie.language || 'N/A'}}</span>
+        </article>
+        <article>
+          <span class="key">Country</span>
+          <span class="value">{{movie.country || 'N/A'}}</span>
+        </article>
+        <article>
+          <span class="key">Awards</span>
+          <span class="value">{{movie.awards || 'N/A'}}</span>
+        </article>
+        <article>
+          <span class="key">Box office</span>
+          <span class="value">{{movie.boxOffice || 'N/A'}}</span>
+        </article>
+        <article>
+          <span class="key">Production</span>
+          <span class="value">{{movie.production || 'N/A'}}</span>
+        </article>
 
+
+
+
+      </div>
+      <div class="poster col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 order-1 order-sm-1 order-md-2 order-lg-2 order-xl-2">
+        <img [src]="movie.poster" alt="">
+      </div>
+    </div>
+    <div *ngIf="movie?.response==='False'" class="row error"></div>
+  </ng-container>
+  <ng-template #loading>
+    <div class="row" #loading></div>
+  </ng-template>
+</div>
 <app-recent></app-recent>

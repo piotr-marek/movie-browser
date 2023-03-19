@@ -1,0 +1,41 @@
+@import 'variables';
+.poster{
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  @media screen and (min-width: 768px) {
+    position: sticky;
+    top: 7rem;
+    align-self: flex-start;
+    justify-content: end;
+    margin-top: 0;
+  }
+}
+.movie{
+  h1{
+    @extend .f-lobster;
+    @extend .f-xl;
+  }
+  .year{
+    @extend .f-roboto-light;
+    font-size: $f-m;
+  }
+  .type{
+    @extend .f-roboto-light;
+  }
+  hr{
+    height: 2px;
+    background: $gradient;
+  }
+  article{
+    @extend .f-roboto-light;
+    padding: .5rem 0;
+    .key{
+      @extend .f-roboto-regular;
+      &:after{
+        content: ': ';
+      }
+    }
+  }
+}
+
