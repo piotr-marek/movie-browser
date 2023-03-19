@@ -35,6 +35,4 @@ export class PaginationComponent {
     if(input && input.page===page) return;
     this.go.emit(page);
   }
-
-
 }

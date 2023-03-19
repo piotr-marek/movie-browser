@@ -1,50 +1,52 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MovieService } from 'src/app/services/movie.service';
 import { catchError, filter, map, merge, Observable, of, share, shareReplay, Subject, switchMap, takeUntil, tap, zipWith } from 'rxjs'
 import { SearchResponse } from 'src/app/interfaces/search-response';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ERROR_RESPONSE } from 'src/app/constants/error-response';
+import { EMPTY_RESPONSE, ERROR_RESPONSE, IS_FETCHING_RESPONSE } from 'src/app/constants/responses';
 import { PaginationInput } from 'src/app/types/pagination-input';
+import { getImageSrc } from 'src/app/functions/get-image-src';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnDestroy {
-  private readonly _EMPTY_RESPONSE: SearchResponse = {response: "False", isEmpty: true};
-  private readonly _IS_FETCHING_RESPONSE: SearchResponse = {response: "False", isFetching: true};
-  private _destroy$ = new Subject<void>();
+export class HomeComponent implements OnInit, OnDestroy {
 
-  queryParams$: Observable<Params>;
-  searchResponse$: Observable<SearchResponse>;
-  outputResponse$: Observable<SearchResponse>;
-  private _isFetching$ = new Subject<SearchResponse>();
+  queryParams$!: Observable<Params>;
+  searchResponse$!: Observable<SearchResponse>;
+  outputResponse$!: Observable<SearchResponse>;
   paginationInput$!: Observable<PaginationInput>;
-
-  isLoading: boolean = false;
-  //isPaginationVisible: boolean = true;
 
   input: FormGroup = new FormGroup({
     s: new FormControl('', {nonNullable: true, validators: [Validators.required, Validators.minLength(3)]}),
     y: new FormControl('', {nonNullable: true, validators: [Validators.pattern(/^[1-9][0-9]{3}$/)]}),
     type: new FormControl('', {nonNullable: true})
   })
+
+  private _isFetching$ = new Subject<SearchResponse>();
+  private _destroy$ = new Subject<void>();
+
   constructor(
     private _movieService: MovieService,
     private _route: ActivatedRoute,
     private _router: Router,
     ) {
-      this.queryParams$ = _route.queryParams;
+
+    }
+
+    ngOnInit(): void {
+      this.queryParams$ = this._route.queryParams;
+
       this.searchResponse$ = this.queryParams$
       .pipe(
         map(queryParams => Object.fromEntries(Object.entries(queryParams).filter(([key, val]) => key==='s' || key==='y' || key==='type' || key==='page'))),
-        switchMap(queryParams => queryParams['s'] ? _movieService.search(queryParams) : of(this._EMPTY_RESPONSE)),
+        switchMap(queryParams => queryParams['s'] ? this._movieService.search(queryParams) : of(EMPTY_RESPONSE)),
         catchError(err => of(ERROR_RESPONSE)),
-        //tap(() => this.isPaginationVisible = true),
         shareReplay(1)
-      )
+      );
 
       this.outputResponse$ = merge(this._isFetching$, this.searchResponse$);
 
@@ -64,8 +66,7 @@ export class HomeComponent implements OnDestroy {
         map(([params, searchResponse]) => ({
           page: params['page'] ? parseInt(params['page']) : 1,
           total:searchResponse.totalResults ? parseInt(searchResponse.totalResults) : 0
-        })),
-        tap(v=> console.log(v))
+        }))
       )
     }
 
@@ -75,8 +76,7 @@ export class HomeComponent implements OnDestroy {
     }
 
     search(){
-      this._isFetching$.next(this._IS_FETCHING_RESPONSE);
-      //this.isPaginationVisible = false;
+      this._isFetching$.next(IS_FETCHING_RESPONSE);
       this._router.navigate([], {queryParams: {
         s: this.input.value.s,
         y: this.input.value.y || undefined,
@@ -84,18 +84,20 @@ export class HomeComponent implements OnDestroy {
         page: 1
       }})
     }
+
     resetInput(){
       this.input.reset();
     }
+
     isClearButtonVisible(): boolean{
       return this.input.get('s')?.value!=='' || this.input.get('y')?.value!=='' || this.input.get('type')?.value!==''
     }
+
     goToPage(page: number){
-      this._isFetching$.next(this._IS_FETCHING_RESPONSE);
+      this._isFetching$.next(IS_FETCHING_RESPONSE);
       this._router.navigate([], {queryParams: { page }, queryParamsHandling: 'merge'});
     }
-    getImageSrc(url: string): string{
-      return url.match(/^http/) ? url : '../../assets/images/no-poster.svg'
-    }
+
+    getImageSrc = getImageSrc;
 
 }

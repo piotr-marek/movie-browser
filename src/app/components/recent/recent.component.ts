@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Movie } from 'src/app/interfaces/movie';
 import { MovieBasicInfo } from 'src/app/interfaces/movie-basic-info';
-import { RecentMovie } from 'src/app/interfaces/recent-movie';
 import { MovieService } from 'src/app/services/movie.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { MovieService } from 'src/app/services/movie.service';
 })
 export class RecentComponent implements OnInit{
 
-  recent$!: Observable<Array<RecentMovie>>;
+  recent$!: Observable<Array<Movie>>;
   constructor(private _movieService: MovieService) {}
 
   ngOnInit(): void {

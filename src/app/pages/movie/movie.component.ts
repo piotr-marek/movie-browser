@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { catchError, combineLatest, Observable, of, scan, switchMap, take, tap } from 'rxjs';
-import { ERROR_RESPONSE } from 'src/app/constants/error-response';
+import { catchError, Observable, of, switchMap, take, tap } from 'rxjs';
+import { ERROR_RESPONSE } from 'src/app/constants/responses';
 import { Movie } from 'src/app/interfaces/movie';
 import { MovieService } from 'src/app/services/movie.service';
 
@@ -19,16 +19,6 @@ export class MovieComponent implements OnInit{
     ){}
 
   ngOnInit(): void {
-    // this.movie$ = combineLatest([this._route.params, this._movieService.recent$])
-    // .pipe(
-    //   switchMap(([params, recent]) => {
-    //     const movie = recent.find(movie => movie?.imdbId===params['id']);
-    //     return movie ? of(movie) : this._movieService.getMovie(params['id'])
-    //   }),
-    //   tap(movie => {if(movie.response==='True') this._movieService.addRecent(movie)}),
-    //   catchError(err => of(ERROR_RESPONSE))
-    // )
-
     this.movie$ = this._route.params
     .pipe(
       switchMap(params => this._movieService.recent$

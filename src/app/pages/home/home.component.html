@@ -47,7 +47,7 @@
         </ng-container>
       </ng-container>
       <ng-template #noResponse>
-        <div class="row error">
+        <div *ngIf="!searchResponse.isEmpty" class="row error">
           <div class="col-12">
             <p>
               <span class="f-roboto-bold">Ooops! </span>
