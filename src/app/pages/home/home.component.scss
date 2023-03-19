@@ -27,6 +27,12 @@
           width: 100%;
           display: block;
           padding: 0;
+          background-color: #fff;
+        }
+        option{
+          font: -moz-pull-down-menu;
+          background-color: #fff;
+          @extend .f-roboto-light;
         }
         .label-name{
           margin-right: .5rem;
